@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} About Operational Amplifiers {% endblock %}
+
+{% block content %}
+<div class="container">
+  <br />
+  <h3>
+      Amplificadores cadastrados
+    </h3> 
+  <div class="list-group">
+    {% for amp in amplificadores %}
+    <a href="{% url 'detail_amplifier' amp.id %}" class="list-group-item list-group-item-action">
+      {{ amp }}
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

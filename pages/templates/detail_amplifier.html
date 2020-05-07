@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} About Operational Amplifiers {% endblock %}
+
+{% block content %}
+<div class="container">
+<br/>
+<head>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<div class="list-group">
+  <div class="list-group-item list-group-item-action active">
+      {{ amp }}
+  </div>
+  <div class="list-group-item list-group-item-action">
+    {{ grafico | safe }}
+    <script>
+          var myPlot = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[0];
+          console.log(myPlot);
+          myPlot.on('plotly_click', function(data){
+            var pts = '';
+            for(var i=0; i < data.points.length; i++){
+                pts = '/result/'+ {{ id }} + '/' + data.points[i].x +'/'+
+                    data.points[i].y;
+                }
+            window.location = pts
+          }
+          );
+    </script>
+  </div>
+  <div class="list-group-item list-group-item-action active">
+    Autor: {{ amp.responsible }}
+    <br/>
+    Email: {{ amp.email }}
+  </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} About Operational Amplifiers {% endblock %}
+
+{% block content %}
+
+
+<!-- Masthead -->
+<header class="masthead text-white text-center">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <h1 class="mb-5">Treino</h1>
+      </div>
+      <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+        <form>
+          <div class="form-row">
+            <div class="col-12 col-ml-3">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <br />
+  <h3>
+    Modelos Regressivos
+  </h3>
+
+  <div class="row">
+    <div class="col-4">
+      <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
+          href="#list-home" role="tab" aria-controls="home">RNA</a>
+        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile"
+          role="tab" aria-controls="profile">SVM</a>
+        <!-- <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Regressor 3</a> -->
+        <!-- <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Regressor 4</a> -->
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list" style="text-align: justify;">
+          São modelos computacionais inspirados pelo sistema nervoso central de um animal (em particular o cérebro) que
+          são capazes de realizar o aprendizado de máquina bem como o reconhecimento de padrões. Redes neurais
+          artificiais geralmente são apresentadas como sistemas de "neurônios interconectados, que podem computar
+          valores de entradas",simulando o comportamento de redes neurais biológicas
+        </div>
+        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list" style="text-align: justify;">
+          Uma máquina de vetores de suporte (SVM, do inglês: support vector machine) é um conceito na ciência da
+          computação para um conjunto de métodos de aprendizado supervisionado que analisam os dados e reconhecem padrões,
+          usado para classificação e análise de regressão. O SVM padrão toma como entrada um conjunto de dados e prediz, 
+          para cada entrada dada, qual de duas possíveis classes a entrada faz parte, o que faz do SVM um classificador 
+          linear binário não probabilístico. </div>
+        <!-- <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div> -->
+        <!-- <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div> -->
+      </div>
+    </div>
+  </div>
+</br>
+
+<div>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Modelos treinados</h5>
+    </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Amplificador</th>
+            <th scope="col">Estrutura</th>
+            <th scope="col">Erro</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for mod in modelos %}
+          <tr>
+                <td>{{ mod.id }}</td>
+                <td>{{ mod.model_type }}</td>
+                <td>{{ mod.amplifier.reference }}</td>
+                <td>
+                    <a  href="/media/{{ mod.file_h5 }}" download> Download</a>
+                </td>
+                <td>
+                  <a  href="{% url 'visualize_erro' mod.id %}"><i class="far fa-eye"></i></a>
+                </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} About Operational Amplifiers {% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <br/>
+  <h3>
+    Resultado
+  </h3>
+
+  <head>
+    <!-- Plotly.js  -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <div class="list-group">
+    <div class="list-group-item list-group-item-action active">
+      {{ amp }} <span class="badge badge-pill badge-info">({{ state.pin_total }}, {{ state.pout_total }})</span>
+    </div>
+    <div class="list-group-item list-group-item-action">
+      {{ grafico | safe }}
+    </div>
+    <div class="list-group-item list-group-item-action active">
+      Autor: {{ amp.responsible }}
+      <br />
+      Email: {{ amp.email }}
+      <br />
+    </div>
+  </div>
+
+  </br>
+
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Info!</strong> O gráfico de comparação faz relação apenas com os pins localizados nos canais de frequências
+    conhecidos do amplificador.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  </br>
+
+  <div class="list-group">
+    <div class="list-group-item list-group-item-action active">
+      Comparação <span class="badge badge-pill badge-info"></span>
+    </div>
+    
+    <div class="list-group-item list-group-item-action">
+      {{ grafico2 | safe}}
+    </div>
+    <div class="list-group-item list-group-item-action active">
+      Autor: {{ amp.responsible }}
+      <br />
+      Email: {{ amp.email }}
+      <br />
+    </div>
+
+
+  </div>
+</div>
+</br>
+    
+{% endblock %}

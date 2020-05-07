@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <br />
+  <h3>
+      Requisições
+    </h3> 
+  <div class="list-group">
+    {% for req in predicoes %}
+    <a href="{% url 'home' %}" class="list-group-item list-group-item-action">
+      {{ req }}
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

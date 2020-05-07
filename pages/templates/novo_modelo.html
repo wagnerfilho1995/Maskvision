@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Cadastrando Modelo {% endblock %}
+
+{% block content %}
+<div class="container">
+  <br />
+  <h3>
+    Cadastre um novo Modelo em nossa plataforma!
+  </h3> 
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary btn-block" style="width: 20%;">Cadastrar</button>
+   
+  </form>
+</div>
+{% endblock %}
