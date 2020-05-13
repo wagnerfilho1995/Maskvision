@@ -26,5 +26,5 @@ class ModeloForm(FormControlClass, forms.ModelForm):
 
 class RequestPredictionForm(FormControlClass, forms.ModelForm):
     class Meta:
-        fields = 'name', 'net_model', 'pin_signal_entry'
+        fields = 'name', 'net_model', 'pin_signal'
         model = RequestPrediction

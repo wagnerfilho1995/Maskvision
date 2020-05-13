@@ -33,7 +33,7 @@ class Document(models.Model):
     file_info = models.FileField(upload_to='tmp/', null = True, blank=True)
     
     def __str__(self):
-        return self.file_txt
+        return self.file_info
 
 class Modelo(models.Model):
     model_type = models.CharField(max_length=255, blank=True, verbose_name="Tipo do Modelo") # RNA ou SVM
@@ -46,7 +46,7 @@ class Modelo(models.Model):
 class RequestPrediction(models.Model):
     name = models.CharField(max_length=255, blank=True, verbose_name="Título") # RNA ou SVM
     net_model = models.ForeignKey(Modelo, on_delete=models.CASCADE, verbose_name="Modelo") #
-    pin_signal_entry = models.FileField(upload_to='requests/', null = True, blank=True, verbose_name="Sinais de entrada (Pin)")
+    pin_signal = models.FileField(upload_to='requests/', null = True, blank=True, verbose_name="Sinais de entrada (Pin)")
     def __str__(self):
         return self.name
 

@@ -127,6 +127,8 @@ def detail_amplifier(request, id):
         {
             'id': id,
             'amp': amp,
+            'Pin_Total': Pin_Total,
+            'Pout_Total': Pout_Total,
             'grafico': plot(
                 {
                     'data': data,
@@ -353,10 +355,9 @@ def compare(request, id, x, y, doc):
     rgb = ["#e84118", "#44bd32", "#0097e6"]
     symbols = ["circle", "square", "diamond", "cross"]
 
+    pins = []
     count = 1
-    print("PIN")
     for pin in leitura.values:
-        print(pin)
         scatters.append(
             go.Scatter(
             x=frequency,
@@ -371,14 +372,17 @@ def compare(request, id, x, y, doc):
             )        
         )
         count += 1
+        aux = []
+        for p in pin:
+            aux.append(p)
+        pins.append(aux)
 
     # Chamando codigo de predicao do allan
-    saidas = execute(str(doc.modelo.file_h5.path), str(doc.modelo.file_txt.path), str(doc.pin_signal.path))
+    saidas = execute(str(doc.net_model.file_h5.path), str(doc.net_model.file_txt.path), str(doc.pin_signal.path))
     
     count = 1
-    print("POUT")
+    pouts = []
     for pout in saidas:
-        print(pout)
         scatters.append(
             go.Scatter(
             x=frequency,
@@ -393,9 +397,16 @@ def compare(request, id, x, y, doc):
             )
         )
         count += 1
+        aux = []
+        for p in pout:
+            aux.append(p)
+        pouts.append(aux)
+    
+    print("POUTS")
+    print(pouts)
 
-    os.remove(str(doc.modelo.file_h5.path))
-    os.remove(str(doc.pin_signal.path))
+    #os.remove(str(doc.net_model.file_h5.path))
+    #os.remove(str(doc.pin_signal.path))
 
     layout2 = go.Layout(
         title='Channel Frequency x Pout ',
@@ -422,6 +433,9 @@ def compare(request, id, x, y, doc):
         {
             'x': x,
             'y': y,
+            'freq': frequency,
+            'pins': pins,
+            'pouts': pouts,
             'state' : state,
             'amp' : amp,
             'grafico' : plot(
