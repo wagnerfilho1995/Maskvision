@@ -47,6 +47,7 @@ class RequestPrediction(models.Model):
     name = models.CharField(max_length=255, blank=True, verbose_name="Título") # RNA ou SVM
     net_model = models.ForeignKey(Modelo, on_delete=models.CASCADE, verbose_name="Modelo") #
     pin_signal = models.FileField(upload_to='requests/', null = True, blank=True, verbose_name="Sinais de entrada (Pin)")
+    ganho = models.IntegerField(null=True)
     def __str__(self):
         return self.name
 

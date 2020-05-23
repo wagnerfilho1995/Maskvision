@@ -26,5 +26,6 @@ class ModeloForm(FormControlClass, forms.ModelForm):
 
 class RequestPredictionForm(FormControlClass, forms.ModelForm):
     class Meta:
-        fields = 'name', 'net_model', 'pin_signal'
+        fields = 'name', 'net_model', 'pin_signal', 'ganho'
         model = RequestPrediction
+        widgets = {'ganho': forms.HiddenInput()}

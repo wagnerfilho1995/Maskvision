@@ -4,55 +4,101 @@
 {% block title %} About Operational Amplifiers {% endblock %}
 
 {% block content %}
-<div class="container">
-  <br />
 
-  <head>
-    <!-- Plotly.js -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.6.4.min.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    <script src="https://raw.githubusercontent.com/google/palette.js/master/palette.js"></script>
-  
-  </head>
+<html>
 
-  <body>
-    <div class="list-group">
-      <div class="list-group-item list-group-item-action active">
-        {{ amp }}
-      </div>
-      <div class="list-group-item list-group-item-action">
-        {{ grafico | safe }}
-        <script>
-          var myPlot = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[0];
-          
-          myPlot.on('plotly_click', function (data) {
-            var pts = '';
-            for (var i = 0; i < data.points.length; i++) {
-              pts = '/result/' + {{ id }} + '/' + data.points[i].x + '/' +
-              data.points[i].y;
-          }
-            window.location = pts
-          });
+<head>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.6.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+</head>
 
-        </script>
-      </div>
-      <div class="list-group-item list-group-item-action active">
-        Autor: {{ amp.responsible }}
+<body>
+  <!-- Page Wrapper -->
+  <div id="wrapper" style="background-color: rgba(39, 60, 117,1.0);">
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column" style="background-color: rgba(39, 60, 117,1.0);">
+      <!-- Main Content -->
+      <div id="content" class="container">
+        <div class="row">
+          <!-- Area Chart -->
+          <div class="col">
+            <br />
+            <div class="card shadow">
+              <!-- Card Header -->
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div class="header">
+                  <h5 class="m-0 font-weight-bold" style="font-weight: bold; color: rgb(33, 37, 41)">{{ amp.reference }}
+                  </h5>
+                  <caption class="m-0 font-weight-bold text-primary">PIBITI Ufal</caption>
+                </div>
+              </div>
+              <!-- Card Body -->
+              <div class="card-body">
+                {{ grafico | safe }}
+                <script>
+                  var myPlot = document.getElementsByClassName("plotly-graph-div js-plotly-plot")[0];
+                  myPlot.on('plotly_click', function (data) {
+                    var pts = '';
+                    for (var i = 0; i < data.points.length; i++) {
+                      pts = '/result/' + {{ id }}
+                      + '/' + data.points[i].x + '/' +
+                      data.points[i].y;
+                  }
+                    window.location = pts
+                  });
+                </script>
+                <p>
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    Predição
+                  </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body">
+                    <div class="form-group">
+                      <label>Selecione um valor de Ganho</label>
+                      <select class="form-control selectpicker" id="ganho">
+                      </select>
+                    </div>
+                    <form method="post" enctype="multipart/form-data" id="my_form">
+                      {% csrf_token %}
+                      {{ form.as_p }}
+                      <button type="submit" class="btn btn-primary btn-block" style="width: 20%;">Enviar</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <br />
-        Email: {{ amp.email }}
+        <!-- 
+          <div class="list-group">
+            <canvas id="myChart"></canvas>
+          </div> -->
       </div>
+      <br />
     </div>
-    <br />
-    <div class="list-group">
-      <canvas id="myChart"></canvas>
-    </div>
+</body>
 
-  </body>
-</div>
+</html>
 
-<script type="text/javascript">
+<style>
+  footer {
+    flex-shrink: 0;
+    background-color: #134c7d;
+    margin: 2px auto 0 auto;
+    position: absolute;
+    width: 100%;
+    bottom: 4px;
+  }
+</style>
 
+
+<script>
+  /*
   var ctx = document.getElementById("myChart").getContext('2d');
   var xs = {{ Pin_Total }};
   var ys = {{ Pout_Total }};
@@ -126,6 +172,25 @@
       ]
     },
     options: options
+  });
+*/
+
+  var ganhos = {{ ganhos }}
+  console.log(ganhos)
+  let arr;
+
+  ganhos.forEach(function (item) {
+    $('#ganho').append("<option>" + item + "</option>");
+  });
+
+  var selected = ganhos[0]
+  var my_form = document.getElementById("my_form");
+  my_form.ganho.value = parseInt(selected);
+
+  $('#ganho').change(function () {
+    var selected = $(this).find("option:selected").text();
+    console.log(selected)
+    my_form.ganho.value = parseInt(selected);
   });
 
 </script>

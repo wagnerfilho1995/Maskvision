@@ -82,19 +82,23 @@ def amplifiers(request):
     return render(request, "amplificadores.html", {"amplificadores" : Amplifier.objects.all()})
 
 def detail_amplifier(request, id):
-
     amp = Amplifier.objects.get(id=id)
     states = State.objects.filter(amplifier=amp)
-    print("DETALHE")
+    print("GANHOS")
     Pin_Total = [state.pin_total for state in states]
     Pout_Total = [state.pout_total for state in states]
     #="/resultados/%f/%f">Análise Ganho vs F. Ruído<a>'%(x,y) for x,y in zip(Pin_Total, Pout_Total)]
     text = ['Ganho: %.2f'%(y-x) for x, y in zip(Pin_Total, Pout_Total)]
-    print(len(Pin_Total))
-    print(len(Pout_Total))
     gain = []
+    gain_int = []
     for pin, pout in zip(Pin_Total, Pout_Total):
         gain.append(pout-pin)
+        aux = int(pout-pin)
+        if(aux not in gain_int):
+            gain_int.append(aux)
+    
+    gain_int.sort()
+    print(gain_int)
 
     scatter = go.Scatter(
         x=Pin_Total,
@@ -107,6 +111,7 @@ def detail_amplifier(request, id):
         title='Pin x Pout',
         autosize=True,
         hovermode='closest',
+        plot_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(
             title='Input Power (dBm)',
             ticklen=5,
@@ -121,12 +126,22 @@ def detail_amplifier(request, id):
         )
     )
     data = [scatter,]
+
+    #form = DocumentForm(request.POST or None, request.FILES or None)
+    form = RequestPredictionForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        print('ENTREI')
+        req = form.save()
+        return redirect ('predicao', id=id, doc=req.id)
+    
     return render(
         request,
         'detail_amplifier.html',
         {
             'id': id,
             'amp': amp,
+            'form': form,
+            'ganhos': gain_int,
             'Pin_Total': Pin_Total,
             'Pout_Total': Pout_Total,
             'grafico': plot(
@@ -137,6 +152,105 @@ def detail_amplifier(request, id):
                 auto_open=False,
                 output_type='div'
             )
+        }
+    )
+
+def predicao(request, id, doc):  
+
+    amp = Amplifier.objects.get(id=id)
+    state = State.objects.get(amplifier=amp, pin_total=-6.74, pout_total=13.54)
+    frequency = state.frequency_ch
+    doc = RequestPrediction.objects.get(id=doc)
+    gset = doc.ganho
+    pathdoc = doc.pin_signal.path
+
+    print(doc.ganho)
+    #pin = pin.replace({',': '.'}, regex=True)
+    #leitura = pd.read_csv(str(doc.file_input), header=None, delim_whitespace=True)
+    leitura = pd.read_csv(str(doc.pin_signal.path), header=None, delim_whitespace=True)
+ 
+    scatters = []
+    rgb = ["#e84118", "#44bd32", "#0097e6"]
+    symbols = ["circle", "square", "diamond", "cross"]
+
+    pins = []
+    count = 1
+    for pin in leitura.values:
+        scatters.append(
+            go.Scatter(
+            x=frequency,
+            y=pin,
+            mode="markers",
+            marker_symbol=symbols[count-1],
+            marker=dict(
+                size=9,
+                color=rgb[(count-1)%3]
+            ),
+            name='Sinal:  ('+str(count)+')'
+            )        
+        )
+        count += 1
+        aux = []
+        for p in pin:
+            aux.append(p)
+        pins.append(aux)
+
+    # Chamando codigo de predicao do allan
+    saidas = execute(str(doc.net_model.file_h5.path), str(doc.net_model.file_txt.path), str(doc.pin_signal.path))
+    print('voltei')
+    count = 1
+    pouts = []
+    for pout in saidas:
+        scatters.append(
+            go.Scatter(
+            x=frequency,
+            y=pout,
+            mode="markers",
+            marker_symbol=symbols[count-1],
+            marker=dict(
+                size=9,
+                color=rgb[(count-1)%3]
+                ),
+            name='Saída: ('+str(count)+')'
+            )
+        )
+        count += 1
+        aux = []
+        for p in pout:
+            aux.append(p)
+        pouts.append(aux)
+    
+    #print("POUTS")
+    #print(pouts)
+
+    layout2 = go.Layout(
+        title='Channel Frequency x Pout ',
+        autosize=True,
+        hovermode='closest',
+        plot_bgcolor='rgba(0,0,0,0)',
+        xaxis=dict(
+            title='Channel Frequency (THz)',
+            ticklen=5,
+            zeroline=False,
+        ),
+        yaxis=dict(
+            title='Pins e Pouts',
+            ticklen=5,
+            zeroline=False,
+        ),
+    )
+
+    data_compare = scatters
+    
+    return render(
+        request,
+        'predicao.html',
+        {
+            'freq': frequency,
+            'pins': pins,
+            'pouts': pouts,
+            'amp' : amp,
+            'gset': gset
         }
     )
 
@@ -151,7 +265,6 @@ def visualize_erro(request, id):
     
     mod = Modelo.objects.get(id=id)
     model_type = mod.amplifier.reference
-
     
     lines = []
     # Lendo linha por linha do txt
@@ -189,6 +302,7 @@ def visualize_erro(request, id):
         title='Erro Médio Quadrático',
         autosize=True,
         hovermode='closest',
+        plot_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(
             title='Epocas',
             ticklen=5,
@@ -299,19 +413,14 @@ def result(request, id, x, y):
 
     return render(request, 'result.html', {'state' : state, 'amplificadores' : Amplifier.objects.all(), 'amp' : amp, 'grafico' : plot({ 'data' : data, 'layout': layout }, auto_open = False, output_type = 'div'), 'form' : form})
 
-
 def compare(request, id, x, y, doc):
     # View que apresenta a comparação
-
     amp = Amplifier.objects.get(id=id)
     state = State.objects.get(amplifier=amp, pin_total=x, pout_total=y)
     frequency = state.frequency_ch
     ganho = state.ganho
     nf = state.nf
-
-    #doc = Document.objects.get(id=doc)
-    doc = RequestPrediction.objects.get(id=doc)
-    pathdoc = doc.pin_signal.path
+ 
     scatter_ganho = go.Scatter(
         x=frequency,
         y=ganho,
@@ -402,8 +511,8 @@ def compare(request, id, x, y, doc):
             aux.append(p)
         pouts.append(aux)
     
-    print("POUTS")
-    print(pouts)
+    #print("POUTS")
+    #print(pouts)
 
     #os.remove(str(doc.net_model.file_h5.path))
     #os.remove(str(doc.pin_signal.path))

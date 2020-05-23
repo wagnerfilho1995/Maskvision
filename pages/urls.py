@@ -10,6 +10,7 @@ urlpatterns = [
     path('novo_amplificador/', views.novo_amplificador, name='novo_amplificador'),
     path('novo_modelo/', views.novo_modelo, name='novo_modelo'),
     path('detail_amplifier/<int:id>', views.detail_amplifier, name='detail_amplifier'),
+    path('predicao/<int:id>/<int:doc>', views.predicao, name='predicao'),
     path('result/<int:id>/<str:x>/<str:y>', views.result, name='result'),
     path('compare/<int:id>/<str:x>/<str:y>/<int:doc>', views.compare, name='compare'),   
     path('treino/', views.treino, name='treino'),
