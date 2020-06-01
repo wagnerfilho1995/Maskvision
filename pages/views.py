@@ -160,6 +160,8 @@ def predicao(request, id, doc):
     amp = Amplifier.objects.get(id=id)
     state = State.objects.get(amplifier=amp, pin_total=-6.74, pout_total=13.54)
     frequency = state.frequency_ch
+    print('FREQUENCY')
+    print(frequency)
     doc = RequestPrediction.objects.get(id=doc)
     gset = doc.ganho
     pathdoc = doc.pin_signal.path
@@ -271,7 +273,6 @@ def visualize_erro(request, id):
     for line in mod.file_txt:
         lines.append(line.split())
 
-    print(lines[3])
     # Erro na linha 4 do arquivo txt
     erro = []
     for value in lines[3]:

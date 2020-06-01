@@ -26,46 +26,48 @@
 </header>
 <div class="container">
   <br />
-  <h3>
-    Modelos Regressivos
-  </h3>
-
-  <div class="row">
-    <div class="col-4">
-      <div class="list-group" id="list-tab" role="tablist">
-        <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
-          href="#list-home" role="tab" aria-controls="home">RNA</a>
-        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile"
-          role="tab" aria-controls="profile">SVM</a>
-        <!-- <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Regressor 3</a> -->
-        <!-- <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Regressor 4</a> -->
-      </div>
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Modelos Regressivos</h4>
     </div>
-    <div class="col-8">
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list" style="text-align: justify;">
-          São modelos computacionais inspirados pelo sistema nervoso central de um animal (em particular o cérebro) que
-          são capazes de realizar o aprendizado de máquina bem como o reconhecimento de padrões. Redes neurais
-          artificiais geralmente são apresentadas como sistemas de "neurônios interconectados, que podem computar
-          valores de entradas",simulando o comportamento de redes neurais biológicas
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
+              href="#list-home" role="tab" aria-controls="home">RNA</a>
+            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile"
+              role="tab" aria-controls="profile">SVM</a>
+            <!-- <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Regressor 3</a> -->
+            <!-- <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Regressor 4</a> -->
+          </div>
         </div>
-        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list" style="text-align: justify;">
-          Uma máquina de vetores de suporte (SVM, do inglês: support vector machine) é um conceito na ciência da
-          computação para um conjunto de métodos de aprendizado supervisionado que analisam os dados e reconhecem padrões,
-          usado para classificação e análise de regressão. O SVM padrão toma como entrada um conjunto de dados e prediz, 
-          para cada entrada dada, qual de duas possíveis classes a entrada faz parte, o que faz do SVM um classificador 
-          linear binário não probabilístico. </div>
-        <!-- <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div> -->
-        <!-- <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div> -->
+        <div class="col-8">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list" style="text-align: justify;">
+              São modelos computacionais inspirados pelo sistema nervoso central de um animal (em particular o cérebro) que
+              são capazes de realizar o aprendizado de máquina bem como o reconhecimento de padrões. Redes neurais
+              artificiais geralmente são apresentadas como sistemas de "neurônios interconectados, que podem computar
+              valores de entradas", simulando o comportamento de redes neurais biológicas.
+            </div>
+            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list" style="text-align: justify;">
+              Uma máquina de vetores de suporte (SVM, do inglês: support vector machine) é um conceito na ciência da
+              computação para um conjunto de métodos de aprendizado supervisionado que analisam os dados e reconhecem padrões,
+              usado para classificação e análise de regressão. O SVM padrão toma como entrada um conjunto de dados e prediz, 
+              para cada entrada dada, qual de duas possíveis classes a entrada faz parte, o que faz do SVM um classificador 
+              linear binário não probabilístico. </div>
+            <!-- <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div> -->
+            <!-- <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div> -->
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </br>
-
 <div>
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title">Modelos treinados</h5>
+      <h4 class="card-title">Modelos treinados</h4>
     </div>
       <table class="table table-striped">
         <thead>
@@ -93,7 +95,8 @@
           {% endfor %}
         </tbody>
       </table>
-  </div>o
+  </div>
+  <br />
 </div>
 </div>
 
