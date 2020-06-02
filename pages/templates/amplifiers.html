@@ -10,7 +10,7 @@
       Amplificadores cadastrados
     </h3> 
   <div class="list-group">
-    {% for amp in amplificadores %}
+    {% for amp in amplifiers %}
     <a href="{% url 'detail_amplifier' amp.id %}" class="list-group-item list-group-item-action">
       {{ amp }}
     </a>

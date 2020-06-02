@@ -62,24 +62,24 @@ def create_states(pin_total, pout_total, amp, frequency_ch_total, g, nf):
 def home(request):
     return render(request, "home.html", {})
 
-def novo_amplificador(request):
+def new_amplifier(request):
     form = AmplifierForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         amp = form.save()
         pin, pout, frequency_ch, ganho, nf = process_file(amp.mask)
         create_states(pin, pout, amp, frequency_ch, ganho, nf)
-        return redirect('amplificadores')
-    return render(request, "novo_amplificador.html", {"form" : form}) 
+        return redirect('amplifiers')
+    return render(request, "new_amplifier.html", {"form" : form}) 
 
-def novo_modelo(request):
+def new_model(request):
     form = ModeloForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         mod = form.save()
         return redirect('treino')
-    return render(request, "novo_modelo.html", {"form" : form}) 
+    return render(request, "new_model.html", {"form" : form}) 
 
 def amplifiers(request):
-    return render(request, "amplificadores.html", {"amplificadores" : Amplifier.objects.all()})
+    return render(request, "amplifiers.html", {"amplifiers" : Amplifier.objects.all()})
 
 def detail_amplifier(request, id):
     amp = Amplifier.objects.get(id=id)
@@ -132,7 +132,7 @@ def detail_amplifier(request, id):
     if form.is_valid():
         print('ENTREI')
         req = form.save()
-        return redirect ('predicao', id=id, doc=req.id)
+        return redirect ('prediction', id=id, doc=req.id)
     
     return render(
         request,
@@ -155,7 +155,7 @@ def detail_amplifier(request, id):
         }
     )
 
-def predicao(request, id, doc):  
+def prediction(request, id, doc):  
 
     amp = Amplifier.objects.get(id=id)
     state = State.objects.get(amplifier=amp, pin_total=-6.74, pout_total=13.54)
@@ -246,7 +246,7 @@ def predicao(request, id, doc):
     
     return render(
         request,
-        'predicao.html',
+        'prediction.html',
         {
             'freq': frequency,
             'pins': pins,
