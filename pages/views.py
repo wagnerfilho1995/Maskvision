@@ -24,6 +24,17 @@ def download(request, file_name):
     return response
 
 def process_file(file_handle):
+    '''
+        Descrição: Processa o arquivo recebido pelo usuário,
+        para criar o que denominamos de State.
+        
+        Utilização:
+        process_file(file_handle)
+
+        Parâmetros:
+        file_handle
+            Arquivo no formato indicado pela aplicação.
+    '''
     # Leitura e ajuste da virgula pelo ponto, nos valores
     data_frame = pd.read_csv(file_handle, sep=';')
     data_frame = data_frame.replace({',': '.'}, regex=True)
@@ -50,6 +61,25 @@ def process_file(file_handle):
     return pin, pout, freq, ganho, noise_figure
 
 def create_states(pin_total, pout_total, amp, frequency_ch_total, g, nf):
+    '''
+        Descrição: Criação de estados, baseado no arquivo de entrada.
+        
+        Utilização:
+        create_states(pin_total, pout_total, amp, frequency_ch_total, g, nf)
+
+        Parâmetros:
+        pin_total
+            Lista de valores de pontos de entradas do amplificador.
+        pout_total
+            Lista de valores de pontos de saídas do amplificador.
+        amp
+            Id do amplificador cadastrado
+        frequency_ch_total
+            Lista de valores de frêquencia para cada canal do amplificador
+        g
+            Lista de valores de ganho do amplificador
+        nf  
+    '''
     # Vamos criar uma lista de states, de acordo com pin e pout do Amplificador
     states = []
     for pin, pout, frequency_ch, ganho, nf in zip(pin_total, pout_total, frequency_ch_total, g, nf):
@@ -155,7 +185,20 @@ def detail_amplifier(request, id):
         }
     )
 
-def prediction(request, id, doc):  
+def prediction(request, id, doc):
+    '''
+        Descrição: Prediz novos valores de saídas apartir de conjunto
+        de sinais de entradas e um determinado valor de ganho, utilizando
+        a função execute(model_path: str, info_path: str, input_path: str).
+        
+        Utilização:
+        prediction(request, id, doc)
+
+        Parâmetros:
+        id
+            Valor referente ao amplificador cadastrado.
+        doc            
+    '''
 
     amp = Amplifier.objects.get(id=id)
     state = State.objects.get(amplifier=amp, pin_total=-6.74, pout_total=13.54)
