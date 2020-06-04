@@ -41,6 +41,101 @@
     </div>
 </body>
 
+<div class="help-button-wrapper">
+  <button class="help-button" data-toggle="modal" data-target="#exampleModalCenter">
+    <span>?</span>
+    Ajuda
+  </button>
+</div>
+
+<!-- Modal -->
+<div class="modal hide fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Contexto da Página</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Essa página apresenta a lista de Amplificadores cadastrados em nosso sistema, clique em algum deles
+        para observar sua relação de potência de entrada e potência de saída.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+
+  .help-button-wrapper {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    text-align: center;
+  }
+  .help-button {
+    height: 6em;
+    width: 6em;
+    font-size: 14px;
+    border-radius: 50%;
+    border: 0 none;
+    background: #4bcffa;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    transform: scale(1);
+    transition: all 200ms ease;
+  }
+  .help-button:hover,
+  .help-button:focus,
+  .help-button:active {
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+    outline: 0;
+  }
+  .help-button span {
+    display: block;
+    font-size: 2em;
+    transform: scale(1);
+    transition: transform 100ms ease;
+  }
+  .help-button:hover span,
+  .expanded .help-button span,
+  .expanded .help-button span {
+    transform: scale(1.25);
+  }
+  .expanded .help-button {
+    transform: scale(0.8);
+    color: rgba(255, 255, 255, 0.5);
+    background: #ffaa00;
+  }
+  .help-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transition: all 200ms ease;
+    transform: translate(0, 90px) scale(0.5);
+    transform-origin: bottom center;
+    opacity: 0;
+  }
+  .expanded .help-list {
+    transform: translate(0px, 20px) scale(1);
+    opacity: 1;
+  }
+  .help-list li {
+    margin-bottom: 1em;
+  }
+  .help-list a {
+    color: #212121;
+  }
+
+</style>
+
+
 <script>
   console.log('EEIII')
   var ctx = document.getElementById("myChart").getContext('2d');

@@ -26,6 +26,7 @@ class ModeloForm(FormControlClass, forms.ModelForm):
 
 class RequestPredictionForm(FormControlClass, forms.ModelForm):
     class Meta:
+        first_name = forms.CharField(error_messages={'required': 'Please let us know what to call you!'})
         fields = 'name', 'net_model', 'pin_signal', 'ganho'
         model = RequestPrediction
         widgets = {'ganho': forms.HiddenInput()}
