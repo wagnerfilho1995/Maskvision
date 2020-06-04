@@ -24,6 +24,17 @@ def download(request, file_name):
     return response
 
 def process_file(file_handle):
+    '''
+        Descrição: Processa o arquivo recebido pelo usuário,
+        para criar o que denominamos de State.
+        
+        Utilização:
+        process_file(file_handle)
+
+        Parâmetros:
+        file_handle
+            Arquivo no formato indicado pela aplicação.
+    '''
     # Leitura e ajuste da virgula pelo ponto, nos valores
     data_frame = pd.read_csv(file_handle, sep=';')
     data_frame = data_frame.replace({',': '.'}, regex=True)
@@ -50,6 +61,25 @@ def process_file(file_handle):
     return pin, pout, freq, ganho, noise_figure
 
 def create_states(pin_total, pout_total, amp, frequency_ch_total, g, nf):
+    '''
+        Descrição: Criação de estados, baseado no arquivo de entrada.
+        
+        Utilização:
+        create_states(pin_total, pout_total, amp, frequency_ch_total, g, nf)
+
+        Parâmetros:
+        pin_total
+            Lista de valores de pontos de entradas do amplificador.
+        pout_total
+            Lista de valores de pontos de saídas do amplificador.
+        amp
+            Id do amplificador cadastrado
+        frequency_ch_total
+            Lista de valores de frêquencia para cada canal do amplificador
+        g
+            Lista de valores de ganho do amplificador
+        nf  
+    '''
     # Vamos criar uma lista de states, de acordo com pin e pout do Amplificador
     states = []
     for pin, pout, frequency_ch, ganho, nf in zip(pin_total, pout_total, frequency_ch_total, g, nf):
@@ -62,24 +92,24 @@ def create_states(pin_total, pout_total, amp, frequency_ch_total, g, nf):
 def home(request):
     return render(request, "home.html", {})
 
-def novo_amplificador(request):
+def new_amplifier(request):
     form = AmplifierForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         amp = form.save()
         pin, pout, frequency_ch, ganho, nf = process_file(amp.mask)
         create_states(pin, pout, amp, frequency_ch, ganho, nf)
-        return redirect('amplificadores')
-    return render(request, "novo_amplificador.html", {"form" : form}) 
+        return redirect('amplifiers')
+    return render(request, "new_amplifier.html", {"form" : form}) 
 
-def novo_modelo(request):
+def new_model(request):
     form = ModeloForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         mod = form.save()
         return redirect('treino')
-    return render(request, "novo_modelo.html", {"form" : form}) 
+    return render(request, "new_model.html", {"form" : form}) 
 
 def amplifiers(request):
-    return render(request, "amplificadores.html", {"amplificadores" : Amplifier.objects.all()})
+    return render(request, "amplifiers.html", {"amplifiers" : Amplifier.objects.all()})
 
 def detail_amplifier(request, id):
     amp = Amplifier.objects.get(id=id)
@@ -132,7 +162,7 @@ def detail_amplifier(request, id):
     if form.is_valid():
         print('ENTREI')
         req = form.save()
-        return redirect ('predicao', id=id, doc=req.id)
+        return redirect ('prediction', id=id, doc=req.id)
     
     return render(
         request,
@@ -155,7 +185,20 @@ def detail_amplifier(request, id):
         }
     )
 
-def predicao(request, id, doc):  
+def prediction(request, id, doc):
+    '''
+        Descrição: Prediz novos valores de saídas apartir de conjunto
+        de sinais de entradas e um determinado valor de ganho, utilizando
+        a função execute(model_path: str, info_path: str, input_path: str).
+        
+        Utilização:
+        prediction(request, id, doc)
+
+        Parâmetros:
+        id
+            Valor referente ao amplificador cadastrado.
+        doc            
+    '''
 
     amp = Amplifier.objects.get(id=id)
     state = State.objects.get(amplifier=amp, pin_total=-6.74, pout_total=13.54)
@@ -246,7 +289,7 @@ def predicao(request, id, doc):
     
     return render(
         request,
-        'predicao.html',
+        'prediction.html',
         {
             'freq': frequency,
             'pins': pins,

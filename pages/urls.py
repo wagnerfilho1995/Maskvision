@@ -5,12 +5,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('amplificadores/', views.amplifiers, name='amplificadores'),
+    path('amplificadores/', views.amplifiers, name='amplifiers'),
     path('sobre/', views.about, name='sobre'),
-    path('novo_amplificador/', views.novo_amplificador, name='novo_amplificador'),
-    path('novo_modelo/', views.novo_modelo, name='novo_modelo'),
+    path('novo_amplificador/', views.new_amplifier, name='new_amplifier'),
+    path('novo_modelo/', views.new_model, name='new_model'),
     path('detail_amplifier/<int:id>', views.detail_amplifier, name='detail_amplifier'),
-    path('predicao/<int:id>/<int:doc>', views.predicao, name='predicao'),
+    path('predicao/<int:id>/<int:doc>', views.prediction, name='prediction'),
     path('result/<int:id>/<str:x>/<str:y>', views.result, name='result'),
     path('compare/<int:id>/<str:x>/<str:y>/<int:doc>', views.compare, name='compare'),   
     path('treino/', views.treino, name='treino'),
