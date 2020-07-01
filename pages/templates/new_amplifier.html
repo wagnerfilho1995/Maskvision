@@ -25,10 +25,19 @@
               <div class="card-body"> 
                 <h3>
                   Cadastre um novo amplificador em nossa plataforma!
-                </h3> 
+                </h3>         
                 <form method="post" enctype="multipart/form-data">
+                  {% for field in form %}
                   {% csrf_token %}
-                  {{ form.as_p }}
+                  <div class="fieldWrapper">
+                      {{ field.errors }}
+                      {{ field.label_tag }} {{ field }}
+                      {% if field.help_text %}
+                      <p class="help">{{ field.help_text|safe }}</p>
+                      {% endif %}
+                  </div>
+                  {% endfor %}
+                </br>
                   <button type="submit" class="btn btn-primary btn-block" style="width: 20%;">Enviar</button>
                 </form>
               </div>

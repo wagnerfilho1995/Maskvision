@@ -137,7 +137,6 @@
 
 
 <script>
-  console.log('EEIII')
   var ctx = document.getElementById("myChart").getContext('2d');
   var entradas = {{ pins }}
   var saidas = {{ pouts }}
@@ -146,12 +145,13 @@
   console.log(frequencia)
   var dados = []
   var count = 1
-  var border = ['rgba(235, 77, 75,1.0)', 'rgba(34, 166, 179,1.0)', 'rgba(106, 176, 76,1.0)']
-  var colors = ['rgba(235, 77, 75, 0.8)', 'rgba(34, 166, 179, 0.8)', 'rgba(106, 176, 76, 0.8)']
+  var border = ['rgba(238, 82, 83,1.0)', 'rgba(34, 166, 179,1.0)', 'rgba(106, 176, 76,1.0)']
+  var colors = ['rgba(238, 82, 83, 0.8', 'rgba(34, 166, 179, 0.8)', 'rgba(106, 176, 76, 0.8)']
 
   entradas.forEach(
     (sinal) => {
       var d = []
+      aux = true
       for(var i = 0; i < sinal.length; i++) {
         d.push(
           {
@@ -159,6 +159,9 @@
             y: sinal[i]
           }
         )
+      }
+      if(count < 2){
+        aux = false
       }
       dados.push(
         {
@@ -168,7 +171,8 @@
           backgroundColor: 'white', //colors[count-1], // Add custom color background (Points and Fill)
           pointRadius: 6,
           borderWidth: 1,
-          pointStyle: 'circle'
+          pointStyle: 'circle',
+          hidden: aux,
         } 
       )
       count += 1
@@ -179,6 +183,7 @@
   saidas.forEach(
     (sinal) => {
       var d = []
+      aux = true
       for(var i = 0; i < sinal.length; i++) {
         d.push(
           {
@@ -186,6 +191,9 @@
             y: sinal[i]+gset
           }
         )
+      }
+      if(count < 2){
+        aux = false
       }
       dados.push(
         {
@@ -195,7 +203,8 @@
           backgroundColor: colors[count-1], //colors[count-1], // Add custom color background (Points and Fill)
           pointRadius: 6,
           borderWidth: 1,
-          pointStyle: 'circle'
+          pointStyle: 'circle',
+          hidden: aux,
         } 
       )
       count += 1

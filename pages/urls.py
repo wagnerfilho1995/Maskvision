@@ -15,5 +15,5 @@ urlpatterns = [
     path('compare/<int:id>/<str:x>/<str:y>/<int:doc>', views.compare, name='compare'),   
     path('treino/', views.treino, name='treino'),
     path('visualize_erro/<int:id>', views.visualize_erro, name = 'visualize_erro'),
-    path('download/h5files/<str:file_name>', views.download, name = 'download'),
+    #path('download/h5files/<str:file_name>', views.download, name = 'download'),
 ]

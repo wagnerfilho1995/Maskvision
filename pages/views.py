@@ -17,12 +17,13 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from .nnPrediction import execute
 
+'''
 def download(request, file_name):
     response = HttpResponse(mimetype='application/force-download')
     response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(file_name)
     response['X-Sendfile'] = smart_str(settings.MEDIA_ROOT + file_name)
     return response
-
+'''
 def process_file(file_handle):
     '''
         Descrição: Processa o arquivo recebido pelo usuário,

@@ -4,12 +4,49 @@
 {% block title %} About Operational Amplifiers {% endblock %}
 
 {% block content %}
+<head>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.6.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <!-- Page Wrapper -->
+  <div id="wrapper" style="background-color: rgba(39, 60, 117,1.0);">
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column" style="background-color: rgba(39, 60, 117,1.0);">
+      <!-- Main Content -->
+      <div id="content" class="container">
+        <div class="row">
+          <!-- Area Chart -->
+          <div class="col">
+            <br />
+            <div class="card shadow">
+              <!-- Card Header -->
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div class="header">
+                  <h5 class="m-0 font-weight-bold" style="font-weight: bold; color: rgb(33, 37, 41)">{{ amp.reference }}
+                  </h5>
+                  <caption class="m-0 font-weight-bold text-primary">Ponto ({{ state.pin_total }}, {{ state.pout_total }})</caption>
+                </div>
+              </div>
+              <!-- Card Body -->
+              <div class="card-body">
+                {{ grafico | safe }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<!-- 
 <div class="container">
   <br />
-  <head>
-    <!-- Plotly.js -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  </head>
   <div class="list-group">
     <div class="list-group-item list-group-item-action active">
       {{ amp }} <span class="badge badge-pill badge-info">({{ state.pin_total }}, {{ state.pout_total }})</span>
@@ -24,7 +61,7 @@
       <br />
     </div>
   </div>
-  <br/>
+  <br/> -->
 <!--   <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h3 class="display-4">Compare com suas saídas!</h3>
@@ -58,7 +95,7 @@
         </button>
       </div>
       <div class="modal-body">
-        O gráfico mostra os valores de Ganho e de Figura de ruído em relação aos canais de frequência do amplificador.
+        O gráfico mostra os valores de Ganho e de Figura de ruído em relação aos canais de frequência do amplificador no ponto de operação selecionado.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">OK!</button>
