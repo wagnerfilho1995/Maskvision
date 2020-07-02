@@ -12,7 +12,7 @@
     <div class="container">
       <div class="row">
         <div class="col-xl-9 mx-auto">
-          <h1 class="mb-5">Visualize o Comportamento de Amplificadores Ópticos.</h1>
+          <h1 class="mb-5"> Visualize the Behavior of Optical Amplifiers.</h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
           <form>
@@ -41,8 +41,8 @@
               <div class="features-icons-icon d-flex">
                 <i class="fas fa-play m-auto text-primary"></i>
               </div>
-              <h3>Registro</h3>
-              <p class="lead mb-0">Registre seus amplificadores em nossa plataforma.</p>
+              <h3>Registry</h3>
+              <p class="lead mb-0">Register your amplifiers on our platform.</p>
             </div>
           </div>
           <div class="col-lg-4">
@@ -50,9 +50,9 @@
               <div class="features-icons-icon d-flex">
                 <i class="fas fa-braille m-auto text-primary"></i>
               </div>
-              <h3>Potência de Entrada vs Potência de Saída</h3>
-              <p class="lead mb-0">Gere a mascara e observe a relação entre potência de entrada
-                e potência de saída.
+              <h3>Input Power vs Output Power</h3>
+              <p class="lead mb-0">Generate the mask and observe the relationship 
+                between input power and output power.
               </p>
             </div>
           </div>
@@ -61,9 +61,8 @@
               <div class="features-icons-icon d-flex">
                 <i class="icon-check m-auto text-primary"></i>
               </div>
-              <h3>Ganho vs Figura de ruído</h3>
-              <p class="lead mb-0">Clique em um ponto de operação para analisar a relação entre
-                ganho e ruído.
+              <h3>Gain vs Noise figure</h3>
+              <p class="lead mb-0">Clique em um ponto de operação para analisar a relação entre ganho e ruído.
               </p>
             </div>
           </div>
@@ -79,13 +78,14 @@
             <img class = "img-fluid" src="{% static 'img/newamp.png' %}" alt="Responsive image">
         </div>
           <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-            <h2>Registrando um amplificador</h2>
-            <p class="lead mb-0">Comece a usar a nossa plataforma cadastrando
-               um amplificador. Preencha o formulário, colocando seu nome, um email para contato, um
-              número de refência para seu amplificador e anexe a planilha csv, que possui os dados de operação.</p>
+            <h2>Registering an amplifier</h2>
+            <p class="lead mb-0">Start using our platform by registering an amplifier. 
+              Fill in the form, putting your name, an email for contact, 
+              a reference number for your amplifier and attach the spreadsheet 
+              csv, which has the operation data.</p>
               <br/>
               <p>
-                <a class="btn btn-primary btn-lg" href="{% url 'new_amplifier' %}" role="button">Novo Amplificador</a>
+                <a class="btn btn-primary btn-lg" href="{% url 'new_amplifier' %}" role="button">New Amplifiers</a>
               </p>
           </div>
         </div>
@@ -94,12 +94,12 @@
               <img class = "img-fluid" src="{% static 'img/lista.PNG' %}" alt="Responsive image">
           </div>
           <div class="col-lg-6 my-auto showcase-text">
-            <h2>Selecione um amplificador</h2>
-            <p class="lead mb-0">Nesta página você encontra a lista de todos os amplificadores registrados
-              em nossa plataforma, clique em algum deles para observar seu comportamento.</p>
+            <h2>Select an amplifier</h2>
+            <p class="lead mb-0">On this page you can find the list of all the amplifiers 
+              registered on our platform, click on any of them to observe their behavior.</p>
               <br/>
               <p>
-                <a class="btn btn-primary btn-lg" href="{% url 'amplifiers' %}" role="button">Amplificadores</a>
+                <a class="btn btn-primary btn-lg" href="{% url 'amplifiers' %}" role="button">Amplifiers</a>
               </p>
           </div>
         </div>
@@ -108,10 +108,10 @@
             <img class = "img-fluid" src="{% static 'img/pontos-amp.png' %}" alt="Responsive image">
           </div>
           <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-            <h2>Analise do comportamento</h2>
-            <p class="lead mb-0">Nesta página você pode observar a relação entre potência de entrada e de saída
-              do amplificador selecionado, além disso é possível clicar em qualquer um dos pontos para analisar
-              o ganho nesse ponto, em determinados canais de frequência.
+            <h2>Behavior analysis</h2>
+            <p class="lead mb-0">On this page you can see the relationship between input and output power
+               of the selected amplifier, in addition it is possible to click on any of the points 
+               to analyze the gain at that point, in certain frequency channels.
             </p>
           </div>
         </div>
