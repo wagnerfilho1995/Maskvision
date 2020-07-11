@@ -10,7 +10,7 @@ class Amplifier(models.Model):
     responsible = models.CharField(max_length=200, verbose_name="Responsible")
     email = models.EmailField() 
     reference = models.CharField(max_length=200,verbose_name="Reference")  
-    mask = models.FileField(upload_to='csv files/', null = True, blank=True, verbose_name="Mask (.csv)")
+    mask = models.FileField(upload_to='csv files/', null = True, blank=True, verbose_name="Mask")
     def __str__(self):
         return self.reference
 	

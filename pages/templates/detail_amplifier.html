@@ -49,7 +49,7 @@
                     window.location = pts
                   });
                 </script>
-                <p>
+                <p data-toggle="tooltip" data-placement="top" title="Press to use our prediction system!">
                   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
                     aria-expanded="false" aria-controls="collapseExample">
                     Prediction
@@ -58,14 +58,31 @@
                 <div class="collapse" id="collapseExample">
                   <div class="card card-body">
                     <div class="form-group">
-                      <label>Select a Gain value</label>
+                      <label>Select a Gain value:</label>
+                      <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Choose a gain value to your prediction. All the gains whore calculed by picking the differences between the points (pin, pout) of the Mask above."></i>
                       <select class="form-control selectpicker" id="ganho">
                       </select>
                     </div>
-                    <form method="post" enctype="multipart/form-data" id="my_form">
-                      {% csrf_token %}
-                      {{ form.as_p }}
-                      <button type="submit" class="btn btn-primary btn-block" style="width: 20%;">Enviar</button>
+                      <form method="post" enctype="multipart/form-data">
+                        {% for field in form %}
+                        {% csrf_token %}
+                        <div class="fieldWrapper">
+                            {{ field.errors }}
+                            {% if field.name == 'net_model' %}
+                              {{ field.label_tag }} <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, choose a Model registered on our platform."></i>
+                              {{ field }}
+                            {% endif %}
+                            {% if field.name == 'pin_signal' %}
+                              {{ field.label_tag }} <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, upload yours signals entry, where each line will be placed on a line in a txt file."></i>
+                              {{ field }}
+                            {% endif %}
+                            {% if field.help_text %}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                      </br>
+                      <button type="submit" class="btn btn-primary btn-block" style="width: 20%;">Cadastrar</button>
                     </form>
                   </div>
                 </div>

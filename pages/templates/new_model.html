@@ -27,10 +27,34 @@
                   Register a new model on our platform!
                 </h3> 
                 <form method="post" enctype="multipart/form-data">
+                  {% for field in form %}
                   {% csrf_token %}
-                  {{ form.as_p }}
-                  <button type="submit" class="btn btn-primary btn-block" style="width: 20%;">Cadastrar</button>
-                </form>
+                  <div class="fieldWrapper">
+                      {{ field.errors }}
+                      {% if field.name == 'model_type' %}
+                        {{ field.label_tag }} <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, write a name to your Model type."></i>
+                        {{ field }}
+                      {% endif %}
+                      {% if field.name == 'amplifier' %}
+                        {{ field.label_tag }} <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, choose a Mask of an Amplifiers registered on our platform."></i>
+                        {{ field }}
+                      {% endif %}
+                      {% if field.name == 'file_h5' %}
+                        {{ field.label_tag }} <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, upload the .h5 file of the Network structure."></i>
+                        {{ field }}
+                      {% endif %}
+                      {% if field.name == 'file_txt' %}
+                        {{ field.label_tag }}<span class="badge badge-info">.CSV</span> <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, upload an txt file that contains Model's information."></i>
+                        {{ field }}
+                      {% endif %}
+                      {% if field.help_text %}
+                      <p class="help">{{ field.help_text|safe }}</p>
+                      {% endif %}
+                  </div>
+                  {% endfor %}
+                </br>
+                <button type="submit" class="btn btn-primary btn-block" style="width: 20%;">Cadastrar</button>
+              </form>
               </div>
             </div>
           </div>

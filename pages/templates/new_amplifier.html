@@ -31,20 +31,87 @@
                   {% csrf_token %}
                   <div class="fieldWrapper">
                       {{ field.errors }}
-                      {{ field.label_tag }} {{ field }}
+                      {% if field.name == 'responsible' %}
+                        {{ field.label_tag }} <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, write your name."></i>
+                        {{ field }}
+                      {% endif %}
+                      {% if field.name == 'email' %}
+                        {{ field.label_tag }} <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, write your email."></i>
+                        {{ field }}
+                      {% endif %}
+                      {% if field.name == 'reference' %}
+                        {{ field.label_tag }} <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, write a reference code to your Amplifier."></i>
+                        {{ field }}
+                      {% endif %}
+                      {% if field.name == 'mask' %}
+                        {{ field.label_tag }}<span class="badge badge-info">.CSV</span> <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, upload your csv file that contains the Amplifier data."></i>
+                        {{ field }}
+                      {% endif %}
                       {% if field.help_text %}
                       <p class="help">{{ field.help_text|safe }}</p>
                       {% endif %}
                   </div>
                   {% endfor %}
                 </br>
-                  <button type="submit" class="btn btn-primary btn-block" style="width: 20%;">Enviar</button>
+                <div class="row" style="width: 100%">
+                  <div class="column" style="width: 50%; padding-left: 16px">
+                    <button type="submit" class="btn btn-primary btn-block" style="width: 20%">Enviar</button>
+                  </div>
+                  <div class="column"> 
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalCenter" style="color: blue; position: absolute; right: 20px; ">See a sample of our csv table.</button>
+                  </div>
+                </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
- 
+</div>
+<!-- Modal -->
+<div class="modal hide fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Page Context</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        By hovering the cursor over the points, it is possible to observe the Gain values.
+      </div>
+      <div class="modal-body">
+        Click on any of the points on the graph to view the Gain and Noise 
+        Figure ratio in relation to the amplifier's frequency channels.
+      </div>
+      <div class="modal-body">
+        Press the prediction button to open a request for our prediction system, you need to choose an 
+        amplifier from our system and provide input data so that we can generate an output.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK!</button>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Create two equal columns that floats next to each other */
+  .column {
+    width: 50%;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  </style>
