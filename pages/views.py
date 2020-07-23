@@ -344,18 +344,18 @@ def visualize_erro(request, id):
     )
     
     layout = go.Layout(
-        title='Erro Médio Quadrático',
+        title='Mean Squared Error',
         autosize=True,
         hovermode='closest',
         plot_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(
-            title='Epocas',
+            title='Epoch',
             ticklen=5,
             zeroline=False,
             gridwidth=2,
         ),
         yaxis=dict(
-            title='Erro',
+            title='Error',
             ticklen=5,
             zeroline=False,
             gridwidth=2,
@@ -366,7 +366,7 @@ def visualize_erro(request, id):
     box_erro = go.Box(y=boxp)
 
     boxlayout = go.Layout(
-        title='Erro Médio Absoluto',
+        title='Mean Absolute Error',
         autosize=True,
         hovermode='closest',
         yaxis=dict(
