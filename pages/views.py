@@ -119,7 +119,7 @@ def detail_amplifier(request, id):
     Pin_Total = [state.pin_total for state in states]
     Pout_Total = [state.pout_total for state in states]
     #="/resultados/%f/%f">Análise Ganho vs F. Ruído<a>'%(x,y) for x,y in zip(Pin_Total, Pout_Total)]
-    text = ['Ganho: %.2f'%(y-x) for x, y in zip(Pin_Total, Pout_Total)]
+    text = ['Gain: %.2f'%(y-x) for x, y in zip(Pin_Total, Pout_Total)]
     gain = []
     gain_int = []
     for pin, pout in zip(Pin_Total, Pout_Total):
@@ -241,7 +241,7 @@ def prediction(request, id, doc):
             aux.append(p)
         pins.append(aux)
 
-    # Chamando codigo de predicao do allan
+    # Chamando codigo de prediction do allan
     saidas = execute(str(doc.net_model.file_h5.path), str(doc.net_model.file_txt.path), str(doc.pin_signal.path))
     print('voltei')
     count = 1
@@ -531,7 +531,7 @@ def compare(request, id, x, y, doc):
             aux.append(p)
         pins.append(aux)
 
-    # Chamando codigo de predicao do allan
+    # Chamando codigo de prediction do allan
     saidas = execute(str(doc.net_model.file_h5.path), str(doc.net_model.file_txt.path), str(doc.pin_signal.path))
     
     count = 1

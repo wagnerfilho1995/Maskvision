@@ -40,11 +40,11 @@
                         {{ field }}
                       {% endif %}
                       {% if field.name == 'file_h5' %}
-                        {{ field.label_tag }} <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, upload the .h5 file of the Network structure."></i>
+                        {{ field.label_tag }}<span class="badge badge-info">.H5</span>  <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, upload the .h5 file of the Network structure."></i>
                         {{ field }}
                       {% endif %}
                       {% if field.name == 'file_txt' %}
-                        {{ field.label_tag }}<span class="badge badge-info">.CSV</span> <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, upload an txt file that contains Model's information."></i>
+                        {{ field.label_tag }}<span class="badge badge-info">.TXT</span> <i class="fas fa-info-circle" style="color: blue" data-toggle="tooltip" data-placement="top" title="Please, upload an txt file that contains Model's information."></i>
                         {{ field }}
                       {% endif %}
                       {% if field.help_text %}
@@ -53,7 +53,7 @@
                   </div>
                   {% endfor %}
                 </br>
-                <button type="submit" class="btn btn-primary btn-block" style="width: 20%;">Cadastrar</button>
+                <button type="submit" class="btn btn-primary btn-block" style="width: 20%;">Send</button>
               </form>
               </div>
             </div>

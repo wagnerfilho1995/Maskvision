@@ -44,7 +44,7 @@ class Modelo(models.Model):
         return self.amplifier.reference
 
 class RequestPrediction(models.Model):
-    name = models.CharField(max_length=255, blank=True, verbose_name="Title") # RNA ou SVM
+    #name = models.CharField(max_length=255, null = True, blank=True, verbose_name="Título") # RNA ou SVM
     net_model = models.ForeignKey(Modelo, on_delete=models.CASCADE, verbose_name="Model") #
     pin_signal = models.FileField(upload_to='requests/', null = True, blank=True, verbose_name="Input signal (Pin)")
     ganho = models.IntegerField(null=True)
