@@ -302,7 +302,7 @@ def prediction(request, id, doc):
 
 def about(request):
     my_name = "Olá, meu nome é Wagner Williams"
-    return render(request, "sobre.html", {"my_name" : my_name})
+    return render(request, "about.html", {"my_name" : my_name})
 
 def train(request):  
     return render(request, "train.html", {"modelos" : Modelo.objects.all()})
