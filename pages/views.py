@@ -307,7 +307,7 @@ def about(request):
 def train(request):  
     return render(request, "train.html", {"modelos" : Modelo.objects.all()})
 
-def visualize_erro(request, id):  
+def error(request, id):  
     
     mod = Modelo.objects.get(id=id)
     model_type = mod.amplifier.reference
@@ -380,7 +380,7 @@ def visualize_erro(request, id):
    
     return render(
         request,
-        'visualize_erro.html',
+        'error.html',
         {
             'grafico': plot(
                 {
@@ -402,7 +402,7 @@ def visualize_erro(request, id):
             'epocas': lines[4]
         }
     )
-    #return render(request, "visualize_erro.html",  {'id' : id, 'modelo' : model_type})
+    #return render(request, "error.html",  {'id' : id, 'modelo' : model_type})
 
 def result(request, id, x, y):
 

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} About Operational Amplifiers {% endblock %}
+
+{% block content %}
+<br>
+<div class="container">
+
+  <head>
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <div class="list-group">
+    <div class="list-group-item list-group-item-action active">
+      Training Error
+    </div>
+    <div class="list-group-item list-group-item-action">
+      {{ grafico | safe }}
+    </div>
+  </div>
+  
+  <br>
+
+  <div class="list-group">
+    <div class="list-group-item list-group-item-action active">
+      Test Error
+    </div>
+    <div class="list-group-item list-group-item-action">
+      {{ boxplot | safe }}
+    </div>
+    
+  </div>
+  <br>
+  <div class="help-button-wrapper">
+    <button class="help-button" data-toggle="modal" data-target="#exampleModalCenter">
+      <span>?</span>
+      Help
+    </button>
+  </div>
+
+  <style>
+    footer {
+      flex-shrink: 0;
+      background-color: #134c7d;
+      margin: 2px auto 0 auto;
+      position: absolute;
+      width: 100%;
+      bottom: 4px;
+    }
+  
+    .help-button-wrapper {
+      position: fixed;
+      bottom: 1em;
+      right: 1em;
+      text-align: center;
+    }
+    .help-button {
+      height: 6em;
+      width: 6em;
+      font-size: 14px;
+      border-radius: 50%;
+      border: 0 none;
+      background: #4bcffa;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+      transform: scale(1);
+      transition: all 200ms ease;
+    }
+    .help-button:hover,
+    .help-button:focus,
+    .help-button:active {
+      box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+      outline: 0;
+    }
+    .help-button span {
+      display: block;
+      font-size: 2em;
+      transform: scale(1);
+      transition: transform 100ms ease;
+    }
+    .help-button:hover span,
+    .expanded .help-button span,
+    .expanded .help-button span {
+      transform: scale(1.25);
+    }
+    .expanded .help-button {
+      transform: scale(0.8);
+      color: rgba(255, 255, 255, 0.5);
+      background: #ffaa00;
+    }
+    .help-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      transition: all 200ms ease;
+      transform: translate(0, 90px) scale(0.5);
+      transform-origin: bottom center;
+      opacity: 0;
+    }
+    .expanded .help-list {
+      transform: translate(0px, 20px) scale(1);
+      opacity: 1;
+    }
+    .help-list li {
+      margin-bottom: 1em;
+    }
+    .help-list a {
+      color: #212121;
+    }
+  {% endblock %}
