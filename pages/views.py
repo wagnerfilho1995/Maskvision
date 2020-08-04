@@ -92,6 +92,8 @@ def create_states(pin_total, pout_total, amp, frequency_ch_total, g, nf):
 
 def home(request):
     return render(request, "home.html", {})
+def contact(request):
+    return render(request, "contact.html", {})
 
 def new_amplifier(request):
     form = AmplifierForm(request.POST or None, request.FILES or None)

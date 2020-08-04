@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} About Operational Amplifiers {% endblock %}
+
+{% block content %}
+<link href="{% static 'css/map-responsive.css" rel="stylesheet' %}">
+<body>
+    <!-- Page Wrapper -->
+    <div id="wrapper" style="background-color: rgba(39, 60, 117,1.0);">
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column" style="background-color: rgba(39, 60, 117,1.0);">
+        <!-- Main Content -->
+        <div id="content" class="container">
+          <div class="row">
+            <!-- Area Chart -->
+            <div class="col">
+              <br />
+              <div class="card shadow">
+                <!-- Card Header -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <div class="header">
+                    <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
+                    <!--Section description-->
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                   <!--Grid column-->
+                <div class="col-md-15 text-center">
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                            <a class="nav-link" href="https://goo.gl/maps/fhiC72obnHsH9DTR6">IC, UFAL</a>
+                        </li>
+                        <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                            <p>maskvsn@gmail.com</p>
+                        </li>
+                    </ul>
+                </div>
+
+
+                
+                </div>
+                <div class="map-responsive">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3934.4870086302835!2d-35.778997950188256!3d-9.553219103093376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x701457bf524b0cb%3A0x9fa7897746e35cc4!2sIC%20-%20Instituto%20de%20Computa%C3%A7%C3%A3o!5e0!3m2!1spt-BR!2sbr!4v1596548186352!5m2!1spt-BR!2sbr" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+</body>
+
+{% endblock %}
