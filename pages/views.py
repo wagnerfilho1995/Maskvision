@@ -106,7 +106,7 @@ def new_model(request):
     form = ModeloForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         mod = form.save()
-        return redirect('treino')
+        return redirect('train')
     return render(request, "new_model.html", {"form" : form}) 
 
 def amplifiers(request):
@@ -304,8 +304,8 @@ def about(request):
     my_name = "Olá, meu nome é Wagner Williams"
     return render(request, "sobre.html", {"my_name" : my_name})
 
-def treino(request):  
-    return render(request, "treino.html", {"modelos" : Modelo.objects.all()})
+def train(request):  
+    return render(request, "train.html", {"modelos" : Modelo.objects.all()})
 
 def visualize_erro(request, id):  
     
