@@ -5,6 +5,9 @@
 - Pip3 `sudo apt install python3-pip`
 - django `pip3 install django`
 - psycopg2 `pip3 install pyscopg2`
+## Criando ambiente virtual
+
+-
 
 ### Instalando banco de dados postgresql 10 no Ubuntu 18.04
 
@@ -20,3 +23,4 @@
     - Altere a senha do usuário do banco, com o comando `ALTER USER postgres PASSWORD 'myPassword';`
     - Caso a resposta seja ALTER ROLE, você conseguiu :+1:
     - Digite `\q` para sair do psql
+
