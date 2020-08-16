@@ -17,13 +17,6 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from .nnPrediction import execute
 
-'''
-def download(request, file_name):
-    response = HttpResponse(mimetype='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(file_name)
-    response['X-Sendfile'] = smart_str(settings.MEDIA_ROOT + file_name)
-    return response
-'''
 def process_file(file_handle):
     '''
         Descrição: Processa o arquivo recebido pelo usuário,
@@ -117,13 +110,12 @@ def amplifiers(request):
 def detail_amplifier(request, id):
     amp = Amplifier.objects.get(id=id)
     states = State.objects.filter(amplifier=amp)
-    print("GANHOS")
     Pin_Total = [state.pin_total for state in states]
     Pout_Total = [state.pout_total for state in states]
-    #="/resultados/%f/%f">Análise Ganho vs F. Ruído<a>'%(x,y) for x,y in zip(Pin_Total, Pout_Total)]
     text = ['Gain: %.2f'%(y-x) for x, y in zip(Pin_Total, Pout_Total)]
     gain = []
     gain_int = []
+
     for pin, pout in zip(Pin_Total, Pout_Total):
         gain.append(pout-pin)
         aux = int(pout-pin)
@@ -131,7 +123,6 @@ def detail_amplifier(request, id):
             gain_int.append(aux)
     
     gain_int.sort()
-    print(gain_int)
 
     scatter = go.Scatter(
         x=Pin_Total,
@@ -160,10 +151,8 @@ def detail_amplifier(request, id):
     )
     data = [scatter,]
 
-    #form = DocumentForm(request.POST or None, request.FILES or None)
     form = RequestPredictionForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        print('ENTREI')
         req = form.save()
         return redirect ('prediction', id=id, doc=req.id)
     
@@ -206,15 +195,10 @@ def prediction(request, id, doc):
     amp = Amplifier.objects.get(id=id)
     state = State.objects.get(amplifier=amp, pin_total=-6.74, pout_total=13.54)
     frequency = state.frequency_ch
-    print('FREQUENCY')
-    print(frequency)
     doc = RequestPrediction.objects.get(id=doc)
     gset = doc.ganho
     pathdoc = doc.pin_signal.path
 
-    print(doc.ganho)
-    #pin = pin.replace({',': '.'}, regex=True)
-    #leitura = pd.read_csv(str(doc.file_input), header=None, delim_whitespace=True)
     leitura = pd.read_csv(str(doc.pin_signal.path), header=None, delim_whitespace=True)
  
     scatters = []
@@ -245,7 +229,6 @@ def prediction(request, id, doc):
 
     # Chamando codigo de prediction do allan
     saidas = execute(str(doc.net_model.file_h5.path), str(doc.net_model.file_txt.path), str(doc.pin_signal.path))
-    print('voltei')
     count = 1
     pouts = []
     for pout in saidas:
@@ -268,9 +251,6 @@ def prediction(request, id, doc):
             aux.append(p)
         pouts.append(aux)
     
-    #print("POUTS")
-    #print(pouts)
-
     layout2 = go.Layout(
         title='Channel Frequency x Pout ',
         autosize=True,
@@ -303,8 +283,8 @@ def prediction(request, id, doc):
     )
 
 def about(request):
-    my_name = "Olá, meu nome é Wagner Williams"
-    return render(request, "about.html", {"my_name" : my_name})
+    Maskvision = "Maskvision"
+    return render(request, "about.html", {"Maskvision" : Maskvision})
 
 def train(request):  
     return render(request, "train.html", {"modelos" : Modelo.objects.all()})
@@ -315,6 +295,7 @@ def error(request, id):
     model_type = mod.amplifier.reference
     
     lines = []
+
     # Lendo linha por linha do txt
     for line in mod.file_txt:
         lines.append(line.split())
@@ -322,7 +303,6 @@ def error(request, id):
     # Erro na linha 4 do arquivo txt
     erro = []
     for value in lines[3]:
-        print(value)
         erro.append(float(value))
 
     # Epoca na linha 5 do arquivo txt
@@ -335,8 +315,6 @@ def error(request, id):
     for value in lines[5]:
         boxp.append(float(value))
     
-    #epoca = np.arange(200)
-    #erro = np.random.rand(200)
     scatter_epocaerro = go.Scatter(
         x=epoca,
         y=erro,
@@ -361,7 +339,6 @@ def error(request, id):
             ticklen=5,
             zeroline=False,
             gridwidth=2,
-           # range=[0, maxro)*1.2]
         ),
     )
     
@@ -373,7 +350,6 @@ def error(request, id):
         hovermode='closest',
         yaxis=dict(
             title='dB'
-           # range=[0, maxro)*1.2]
         ),
     )
 
@@ -404,7 +380,6 @@ def error(request, id):
             'epocas': lines[4]
         }
     )
-    #return render(request, "error.html",  {'id' : id, 'modelo' : model_type})
 
 def result(request, id, x, y):
 
@@ -451,16 +426,15 @@ def result(request, id, x, y):
 
     data = [scatter_ganho, scatter_nf]
 
-    #form = DocumentForm(request.POST or None, request.FILES or None)
     form = RequestPredictionForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        print('entrei')
         req = form.save()
         return redirect ('compare', id=id,x=x,y=y, doc=req.id)
 
     return render(request, 'result.html', {'state' : state, 'amplificadores' : Amplifier.objects.all(), 'amp' : amp, 'grafico' : plot({ 'data' : data, 'layout': layout }, auto_open = False, output_type = 'div'), 'form' : form})
 
 def compare(request, id, x, y, doc):
+
     # View que apresenta a comparação
     amp = Amplifier.objects.get(id=id)
     state = State.objects.get(amplifier=amp, pin_total=x, pout_total=y)
@@ -503,8 +477,6 @@ def compare(request, id, x, y, doc):
         ),
     )
     
-    #pin = pin.replace({',': '.'}, regex=True)
-    #leitura = pd.read_csv(str(doc.file_input), header=None, delim_whitespace=True)
     leitura = pd.read_csv(str(doc.pin_signal.path), header=None, delim_whitespace=True)
  
     scatters = []
@@ -533,7 +505,7 @@ def compare(request, id, x, y, doc):
             aux.append(p)
         pins.append(aux)
 
-    # Chamando codigo de prediction do allan
+    # nnPrediction
     saidas = execute(str(doc.net_model.file_h5.path), str(doc.net_model.file_txt.path), str(doc.pin_signal.path))
     
     count = 1
@@ -557,12 +529,6 @@ def compare(request, id, x, y, doc):
         for p in pout:
             aux.append(p)
         pouts.append(aux)
-    
-    #print("POUTS")
-    #print(pouts)
-
-    #os.remove(str(doc.net_model.file_h5.path))
-    #os.remove(str(doc.pin_signal.path))
 
     layout2 = go.Layout(
         title='Channel Frequency x Pout ',
