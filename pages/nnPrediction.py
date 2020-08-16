@@ -44,7 +44,6 @@ def execute(model_path: str, info_path: str, input_path: str) -> np.array:
 		
 		Returns: the predicted Output Power(s) as a numpy array (1-D or 2-D; 1 output per line, 1 channel per column).
 	"""
-	print("entrando na execute")
 	## Reading input data
 	with open(input_path, 'r') as input_file:
 		input_data = []

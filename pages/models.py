@@ -26,8 +26,6 @@ class State(models.Model):
         return self.amplifier.reference
 
 class Document(models.Model):
-    #description = models.CharField(max_length=255, blank=True)
-    #document = models.FileField(upload_to='tmp/', null = True, blank=True)
     file_signal = models.FileField(upload_to='tmp/', null = True, blank=True)
     file_h5 = models.FileField(upload_to='tmp/', null = True, blank=True)
     file_info = models.FileField(upload_to='tmp/', null = True, blank=True)
@@ -44,7 +42,6 @@ class Modelo(models.Model):
         return self.amplifier.reference
 
 class RequestPrediction(models.Model):
-    #name = models.CharField(max_length=255, null = True, blank=True, verbose_name="Título") # RNA ou SVM
     net_model = models.ForeignKey(Modelo, on_delete=models.CASCADE, verbose_name="Model") #
     pin_signal = models.FileField(upload_to='requests/', null = True, blank=True, verbose_name="Input signal (Pin)")
     ganho = models.IntegerField(null=True)

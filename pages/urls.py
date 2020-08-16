@@ -16,5 +16,4 @@ urlpatterns = [
     path('train/', views.train, name='train'),
     path('error/<int:id>', views.error, name = 'error'),
     path('contact/', views.contact, name = 'contact'),
-    #path('download/h5files/<str:file_name>', views.download, name = 'download'),
 ]

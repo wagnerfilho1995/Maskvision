@@ -15,7 +15,6 @@ class AmplifierForm(FormControlClass, forms.ModelForm):
 
 class DocumentForm(FormControlClass, forms.ModelForm):
     class Meta:
-        #fields = 'description', 'document'
         fields = 'file_signal', 'file_h5', 'file_info'   
         model = Document
 

@@ -61,12 +61,7 @@
                       <label>Select a Gain value:</label>
                       <select class="form-control selectpicker" id="ganho">
                       </select>
-                    </div><!--
-                    <form method="post" enctype="multipart/form-data" id="my_form">
-                      {% csrf_token %}
-                      {{ form.as_p }}
-                      <button type="submit" class="btn btn-primary btn-block" style="width: 20%;">Enviar</button>
-                    </form>-->
+                    </div>
                     <form method="post" enctype="multipart/form-data" id="my_form">
                       {% for field in form %}
                       {% csrf_token %}
@@ -96,10 +91,6 @@
           </div>
         </div>
         <br />
-        <!-- 
-          <div class="list-group">
-            <canvas id="myChart"></canvas>
-          </div> -->
       </div>
       <br />
       
@@ -217,89 +208,7 @@
 </style>  
 
 <script>
-/*
-  $(".help-button").on("click", function() {
-    $(".help-button-wrapper").toggleClass("expanded");
-  });
 
-  
-  var ctx = document.getElementById("myChart").getContext('2d');
-  var xs = {{ Pin_Total }};
-  var ys = {{ Pout_Total }};
-
-  // Define the data 
-  dados = []
-  for(var i = 0; i < xs.length; i++) {
-    dados.push(
-      {
-        x: xs[i],
-        y: ys[i]
-        //r: parseFloat((ys[i]-xs[i])/5).toFixed(2)
-      }
-    )
-  }
- 
-  // End Defining data
-  var options = {
-    legend:{
-      display: false,
-      labels: {
-        fontColor:'#000',
-        fontFamily:'sans-serif'
-      }
-    },
-    elements: { 
-      point: { 
-        radius: 5,
-        hitRadius: 8, 
-        hoverRadius: 8,
-      } 
-    },
-    hover: {
-        mode: 'nearest',
-        intersect: true,
-        legend: {
-          display: false
-        }
-    },
-    scales: {
-      yAxes: [
-        {
-          gridLines: {
-              display: false
-          },
-        }
-      ],
-      xAxes: [
-        {
-          gridLines: {
-              display: false
-          },
-        }
-      ]
-    },
-    responsive: true, // Instruct chart js to respond nicely.
-    maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
-  };
-
-  // End Defining data
-  var myChart = new Chart(ctx, {
-    type: 'scatter',
-    data: {
-      datasets: [{
-          label: '(PIN, POUT)', // Name the series
-          data: dados, // Specify the data values array
-          borderColor: 'rgba(41, 128, 185, 1.0)', // Add custom color border            
-          backgroundColor: 'rgba(41, 128, 185, 0.8)',
-          //pointRadius: 6,
-        }
-      ]
-    },
-    options: options
-  });
-*/
-
-  
   var ganhos = {{ ganhos }}
   console.log(ganhos)
   let arr;
