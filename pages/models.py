@@ -36,8 +36,8 @@ class Document(models.Model):
 class Modelo(models.Model):
     model_type = models.CharField(max_length=255, blank=True, verbose_name="Model Type") # RNA ou SVM
     amplifier = models.ForeignKey(Amplifier, on_delete=models.CASCADE, verbose_name="Amplifiers") # 
-    file_h5 = models.FileField(upload_to='h5files/', null = True, blank=True, verbose_name="Model NN (.h5)")
-    file_txt = models.FileField(upload_to='txtfiles/', null = True, blank=True, verbose_name="Network information(.txt)")
+    file_h5 = models.FileField(upload_to='h5files/', null = True, blank=True, verbose_name="Model NN (.h5)") #Regression Model
+    file_txt = models.FileField(upload_to='txtfiles/', null = True, blank=True, verbose_name="Network information(.txt)") #Model Information
     def __str__(self):
         return self.amplifier.reference
 
